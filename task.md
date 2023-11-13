@@ -14,9 +14,9 @@ Your solution code should contain the following elements / features:
 
 - [x] The standard <button> or <Link> props should be settable on <Button> (and then be spread onto <button> or <Link>)
 
-- [] A custom, reusable Input wrapper component that can be used to fetch user input - it should bundle ("connected") <label> and <input> elements into a <div> element
+- [x] A custom, reusable Input wrapper component that can be used to fetch user input - it should bundle ("connected") <label> and <input> elements into a <div> element
 
-- [] The standard <input> props should be accepted by Input and should be spread onto the rendered <input> element
+- [x] The standard <input> props should be accepted by Input and should be spread onto the rendered <input> element
 
 - [] A custom Modal component that exposes an open() method which, inside the Modal component, then triggers the built-in showModal() method on the built-in <dialog> element - in addition, the <dialog> element should be "teleported" into the <div id="modal-root"> element
 
