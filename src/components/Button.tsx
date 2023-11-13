@@ -1,24 +1,36 @@
-import { ReactNode } from "react";
+import { ComponentPropsWithoutRef, ReactNode } from "react";
 import { Link } from "react-router-dom";
 
-interface ButtonProps {
-  to?: string;
+type CommonProps = {
   textOnly: boolean;
   children: ReactNode;
+};
+
+type ButtonProps = ComponentPropsWithoutRef<"button"> & CommonProps & {
+  to?: never;
 }
 
-const Button = (props: ButtonProps) => {
-  const btnTextonly = props.textOnly ? "button--text-only" : "";
+type LinkProps = ComponentPropsWithoutRef<typeof Link> & CommonProps & {
+  to: string;
+}
 
-  if (props.to) {
+const Button = ({ to, textOnly, children, ...otherProps }: ButtonProps | LinkProps) => {
+  if (to) {
     return (
-      <Link to={props.to} className={`button ${btnTextonly}`}>
-        {props.children}
+      <Link to={to} className={`button ${textOnly ? "button--text-only" : ""}`}>
+        {children}
       </Link>
     );
-  }
+  } 
 
-  return <button className={`button ${btnTextonly}`}>{props.children}</button>;
+  return (
+    <button
+      className={`button ${textOnly ? "button--text-only" : ""}`}
+      {...otherProps as ButtonProps}
+    >
+      {children}
+    </button>
+  );
 };
 
 export default Button;
