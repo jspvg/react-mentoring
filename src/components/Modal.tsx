@@ -1,37 +1,39 @@
-import { useRef, ReactNode } from "react";
+import { forwardRef, useRef, ReactNode, useImperativeHandle } from "react";
 import { createPortal } from "react-dom";
-// import Input from "./Input";
-// import Button from "./Button";
+
+export type ModalHandle = {
+  open: () => void;
+};
 
 type ModalProps = {
   children: ReactNode;
+  onClose: () => void;
 };
 
-const Modal = ({ children }: ModalProps) => {
+const Modal = forwardRef<ModalHandle, ModalProps>(function Modal(
+  { children, onClose },
+  ref
+) {
   const modal = useRef<HTMLDialogElement>(null);
 
-  const open = () => {
-    if (modal.current) {
-      modal.current?.showModal();
-    }
-  };
-
-  const close = () => {
-    modal.current?.close();
-  };
+  useImperativeHandle(ref, () => {
+    return {
+      open: () => {
+        if (modal.current) {
+          modal.current?.showModal();
+        }
+      },
+    };
+  });
 
   return createPortal(
     <>
-      <dialog className="modal" ref={modal}>
-        {/* <Input type="text" id="Name" label="Your name" />
-        <Input type="text" id="Email" label="Your email" />
-        <Button textOnly={true}>Cancel</Button>
-        <Button textOnly={false}>Book Session</Button> */}
+      <dialog className="modal" ref={modal} onClose={onClose}>
         {children}
       </dialog>
     </>,
     document.getElementById("modal-root")!
   );
-};
+});
 
 export default Modal;
