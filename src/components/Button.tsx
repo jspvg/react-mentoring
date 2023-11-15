@@ -6,27 +6,38 @@ type CommonProps = {
   children: ReactNode;
 };
 
-type ButtonProps = ComponentPropsWithoutRef<"button"> & CommonProps & {
-  to?: never;
+type ButtonProps = ComponentPropsWithoutRef<"button"> &
+  CommonProps & {
+    to?: never;
+  };
+
+type LinkProps = ComponentPropsWithoutRef<typeof Link> &
+  CommonProps & {
+    to: string;
+  };
+
+function isRouterLink(props: ButtonProps | LinkProps): props is LinkProps {
+  return "to" in props;
 }
 
-type LinkProps = ComponentPropsWithoutRef<typeof Link> & CommonProps & {
-  to: string;
-}
-
-const Button = ({ to, textOnly, children, ...otherProps }: ButtonProps | LinkProps) => {
-  if (to) {
+const Button = (props: ButtonProps | LinkProps) => {
+  if (isRouterLink(props)) {
+    const { textOnly, children, ...otherProps } = props;
     return (
-      <Link to={to} className={`button ${textOnly ? "button--text-only" : ""}`}>
+      <Link
+        className={`button ${textOnly ? "button--text-only" : ""}`}
+        {...otherProps}
+      >
         {children}
       </Link>
     );
-  } 
+  }
 
+  const { textOnly, children, ...otherProps } = props;
   return (
     <button
       className={`button ${textOnly ? "button--text-only" : ""}`}
-      {...otherProps as ButtonProps}
+      {...otherProps}
     >
       {children}
     </button>
