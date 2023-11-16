@@ -21,6 +21,14 @@ const sessionsReducer = (state: SessionState, action: SessionAction) => {
     };
   }
 
+  if (action.type === "cancel_session") {
+    return {
+      upcomingSessions: state.upcomingSessions.filter(
+        (session) => session.id !== action.sessionId
+      ),
+    };
+  }
+
   return state;
 };
 
