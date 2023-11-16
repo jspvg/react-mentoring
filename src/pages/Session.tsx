@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { SESSIONS } from "../dummy-sessions.ts";
 import Button from "../components/Button.tsx";
 import { useState } from "react";
-import BookSession from "../components/BookSession.tsx";
+import BookSession from "../components/sessions/BookSession.tsx";
 
 export default function SessionPage() {
   const params = useParams<{ id: string }>();

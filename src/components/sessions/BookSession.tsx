@@ -1,7 +1,7 @@
 import { FormEvent, useEffect, useRef } from "react";
-import Modal, { ModalHandle } from "./Modal";
-import Input from "./Input";
-import Button from "./Button";
+import Modal, { ModalHandle } from "../Modal";
+import Input from "../Input";
+import Button from "../Button";
 
 type BookSessionProps = {
   onClose: () => void;
