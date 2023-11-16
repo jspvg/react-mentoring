@@ -20,18 +20,16 @@ const Modal = forwardRef<ModalHandle, ModalProps>(function Modal(
     return {
       open: () => {
         if (modal.current) {
-          modal.current?.showModal();
+          modal.current.showModal();
         }
       },
     };
   });
 
   return createPortal(
-    <>
       <dialog className="modal" ref={modal} onClose={onClose}>
         {children}
-      </dialog>
-    </>,
+      </dialog>,
     document.getElementById("modal-root")!
   );
 });
